@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version (or Chrome Frame if pre-IE11). -->
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Sample</title>
+  <script src="../Build/Cesium/Cesium.js"></script>
+  <style>
+      @import url(../Build/Cesium/Widgets/widgets.css);
+
+      #cesiumContainer {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          overflow: hidden;
+          padding: 0;
+          font-family: sans-serif;
+      }
+
+      html {
+        height: 100%;
+      }
+
+      body {
+          padding: 0;
+          margin: 0;
+          overflow: hidden;
+          height: 100%;
+      }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <span id="myCredit" style="display: none;"></span>
+  <script>
+    var viewer = new Cesium.Viewer('cesiumContainer', {
+      imageryProvider: new Cesium.WebMapServiceImageryProvider({
+        //url: '//contcache.its-mo.com/if/wms/v1/wms1',
+        url: '//test-contcache.its-mo.com/if/wms/v1/wms',
+        layers : '0'
+        //proxy: new Cesium.DefaultProxy('/proxy/')
+      }),
+      baseLayerPicker : false,
+      timeline: false,
+      animation: false,
+      navigationInstructionsInitiallyVisible: false,
+      navigationHelpButton: false,
+      creditContainer: 'myCredit'
+    });
+
+    var scene = viewer.scene;
+    var ellipsoid = viewer.scene.globe.ellipsoid;
+//    var ellipsoid = Cesium.Ellipsoid.WGS84;
+    var west = Cesium.Math.toRadians(80);
+    var south = Cesium.Math.toRadians(-30);
+    var east = Cesium.Math.toRadians(130);
+    var north = Cesium.Math.toRadians(30.0);
+
+    var extent = new Cesium.Rectangle(west, south, east, north);
+    scene.camera.viewRectangle(extent, ellipsoid);
+
+
+  </script>
+</body>
+</html>
